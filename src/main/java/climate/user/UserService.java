@@ -52,7 +52,7 @@ public class UserService {
     }
 
     public boolean changePassword(User user){
-        if(checkPassword(user.getName(), user.getPassword())){
+        if(checkPassword("name", user.getPassword())){
             return false;
         }else{
             return true;
