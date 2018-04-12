@@ -3,7 +3,6 @@ package climate.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.server.PathParam;
 
 @RestController
 public class LoginController {
@@ -12,7 +11,7 @@ public class LoginController {
     private UserService userService;
 
     @RequestMapping("/signIn")
-    public boolean signIn(@RequestParam String name, @RequestParam String password){
+    public User signIn(@RequestParam String name, @RequestParam String password){
         return userService.signIn(name, password);
     }
 
@@ -22,8 +21,8 @@ public class LoginController {
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/changePassword")
-    public boolean changePassword(@RequestBody User user){
-        return userService.changePassword(user);
+    public boolean changePassword(@RequestBody User user, @RequestBody String oldPassword){
+        return userService.changePassword(user, oldPassword);
     }
 
 }
