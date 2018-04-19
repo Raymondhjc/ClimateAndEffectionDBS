@@ -3,15 +3,12 @@ package climate.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 @Service
 public class UserService {
 
-    private User user;
+    private Users users;
     @Autowired
     private UserRepository userRepository;
 
@@ -20,21 +17,21 @@ public class UserService {
     }
 
 
-    public void addUser(User user) {
-        userRepository.save(user);
+    public void addUser(Users users) {
+        userRepository.save(users);
     }
 
-    public User signIn(String name, String password) {
+    public Users signIn(String name, String password) {
         if (!checkUserExist(name)) {
             if (checkPasswordByName(name, password)) {
-                User user = userRepository.findByName(name);
-                return user;
+                Users users = userRepository.findByName(name);
+                return users;
             }
         }
         return null;
     }
 
-    private int checkPassword(Long id, String password) {
+    private int checkPassword(int id, String password) {
         boolean f;
         try {
             f = userRepository.findById(id).get().equals(password);
@@ -44,13 +41,15 @@ public class UserService {
         return f ? 1 : 0;
     }
 
+
+
     private boolean checkPasswordByName(String name, String password) {
         return userRepository.findByName(name).equals(password);
     }
 
     private boolean checkUserExist(String name) {
         // cannot do this, load all users. Modify later!
-//        List<User> users = new ArrayList<>();
+//        List<Users> users = new ArrayList<>();
 //        try {
 //            return userRepository.findAll().forEach(users::);
 //        } catch (NoSuchElementException ex) {
@@ -58,30 +57,26 @@ public class UserService {
 //        }
         return false;
     }
-
-    public int signUp(User user) {
-        int code = 0;
-        String name = user.getName();
-        String password = user.getPassword();
-        if (checkUserExist(name)) {
-            code = 0;
-        } else {
-            if (name == "n" && password == "pass") {
-                code = 1;
-            }
+    // quick sign up. name and password, assign id
+    public boolean signUp(String name, String password) {
+        if (!checkUserExist(name)) {
+            userRepository.save(new Users(new Integer(1), name, password));
         }
-
-        return code;
+        return false;
     }
 
-    public boolean changePassword(User user, String oldPassword) {
-        int f = checkPassword(user.getId(), oldPassword);
+    public boolean changePassword(Users users, String oldPassword) {
+        int f = checkPassword(users.getId(), oldPassword);
         if (f == 1) {
-            userRepository.save(user);
+            userRepository.save(users);
             return true;
         } else {
             return false;
         }
+    }
+
+    public Iterable<Users> getAllUsers(){
+        return userRepository.findAll();
     }
 
 }

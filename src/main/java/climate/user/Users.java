@@ -1,34 +1,35 @@
 package climate.user;
 
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class User {
+public class Users {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private Long id;
+    private Integer id;
     private String name;
     private String password;
 
-    public User() {
+    public Users() {
 
     }
 
-    public User(Long id, String name, String password) {
+    public Users(int id, String name, String password) {
         this.id = id;
         this.name = name;
         this.password = password;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
