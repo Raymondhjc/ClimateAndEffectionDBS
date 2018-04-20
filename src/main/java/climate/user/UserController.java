@@ -11,7 +11,7 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping("/signIn")
-    public Users signIn(@RequestParam("name") String name, @RequestParam("password") String password){
+    public User signIn(@RequestParam("name") String name, @RequestParam("password") String password){
         return userService.signIn(name, password);
     }
 
@@ -21,14 +21,8 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/changePassword")
-    public boolean changePassword(@RequestBody Users users, String oldPassword){
-        return userService.changePassword(users, oldPassword);
-    }
-
-    @GetMapping(path="/all")
-    public @ResponseBody Iterable<Users> getAllUsers() {
-        // This returns a JSON or XML with the users
-        return userService.getAllUsers();
+    public boolean changePassword(@RequestBody User user, String oldPassword){
+        return userService.changePassword(user, oldPassword);
     }
 
 }
