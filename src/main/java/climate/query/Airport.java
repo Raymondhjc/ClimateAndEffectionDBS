@@ -1,0 +1,46 @@
+package climate.query;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "airports")
+public class Airport {
+
+    @Autowired
+
+    @Id
+    private String code;
+    @Column(nullable = false)
+    private String airport;
+    @Column(nullable = false)
+    private String state;
+    @Column(nullable = false)
+    private String city;
+
+    public Airport(String code, String airport) {
+        this.code = code;
+        this.airport = airport;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public String getAirport() {
+        return airport;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public void setAirport(String airport) {
+        this.airport = airport;
+    }
+
+}
