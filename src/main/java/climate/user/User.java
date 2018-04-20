@@ -5,12 +5,10 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
+@SequenceGenerator(name="userId",sequenceName="id")
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-    @Column(nullable = false)
     private String name;
     @Column(nullable = false)
     private String password;
@@ -19,18 +17,9 @@ public class User {
 
     }
 
-    public User(int id, String name, String password) {
-        this.id = id;
+    public User(String name, String password) {
         this.name = name;
         this.password = password;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {

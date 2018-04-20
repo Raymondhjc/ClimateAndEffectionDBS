@@ -32,18 +32,7 @@ public class UserService {
         return null;
     }
 
-    private int checkPassword(int id, String password) {
-        boolean f;
-        try {
-            f = userRepository.findById(id).get().equals(password);
-        } catch (NoSuchElementException ex) {
-            return -1;
-        }
-        return f ? 1 : 0;
-    }
-
     private boolean checkPasswordByName(String name, String password) {
-        System.out.println(userRepository.findPasswordByName(name));
         return userRepository.findByName(name).size() == 1 && userRepository.findPasswordByName(name).equals(password);
     }
 
@@ -51,17 +40,18 @@ public class UserService {
         return userRepository.findByName(name).size() == 1;
     }
     // quick sign up. name and password, assign id
-    public boolean signUp(String name, String password) {
+    public User signUp(String name, String password) {
         if (!checkUserExist(name)) {
-            userRepository.save(new User(new Integer(1), name, password));
+            System.out.println(name+password);
+            User u = new User(name, password);
+            return userRepository.save(u);
         }
-        return false;
+        return null;
     }
 
-    public boolean changePassword(User user, String oldPassword) {
-        int f = checkPassword(user.getId(), oldPassword);
-        if (f == 1) {
-            userRepository.save(user);
+    public boolean changePassword(String name, String newPassword, String oldPassword) {
+        if(checkPasswordByName(name, oldPassword)) {
+            userRepository.save(new User(name, newPassword));
             return true;
         } else {
             return false;
