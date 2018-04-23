@@ -3,6 +3,7 @@ package climate.query;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.Date;
 import java.util.List;
 
 public interface QueryRepository extends CrudRepository<Flight, String> {
@@ -19,5 +20,7 @@ public interface QueryRepository extends CrudRepository<Flight, String> {
     @Query("select f.airline, f.flightNum from Flight f where f.destAirport = ?1")
     List<Object[]> findByDest(String destination);
 
+    @Query("select f.airline, f.flightNum from Flight f where f.date = ?1")
+    List<Object[]> findByDate(Date date);
 
 }
