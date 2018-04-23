@@ -1,14 +1,14 @@
 package climate.query;
 
 import oracle.sql.DATE;
-import oracle.sql.NUMBER;
 
 import java.io.Serializable;
+import java.util.Date;
 
 
 public class FlightId implements Serializable{
-    private DATE date;
+    private Date date;
     private String airline;
-    private NUMBER flightNum;
+    private int flightNum;
     private String originAirport;
 }

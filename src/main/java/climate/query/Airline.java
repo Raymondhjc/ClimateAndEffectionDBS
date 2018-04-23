@@ -14,9 +14,12 @@ public class Airline {
     @Column(name = "airline", nullable = false)
     private String airline;
 
-    @OneToMany(mappedBy = "airline", cascade = CascadeType.ALL)
-    private List<Flight> flights = new ArrayList<>();
+//    @OneToMany(mappedBy = "airline", cascade = CascadeType.ALL)
+//    private List<Flight> flights = new ArrayList<>();
 
+    public Airline(){
+
+    }
     public Airline(String code, String airline) {
         this.code = code;
         this.airline = airline;

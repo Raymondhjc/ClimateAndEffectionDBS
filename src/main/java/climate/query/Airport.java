@@ -14,12 +14,13 @@ public class Airport {
     @Autowired
 
     @Id
+    @Column(name = "airport_iata_code")
     private String code;
-    @Column(nullable = false)
+    @Column(name = "airport", nullable = false)
     private String airport;
-    @Column(nullable = false)
+    @Column(name = "state", nullable = false)
     private String state;
-    @Column(nullable = false)
+    @Column(name = "city", nullable = false)
     private String city;
 
     public Airport(String code, String airport) {

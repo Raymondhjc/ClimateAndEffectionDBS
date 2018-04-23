@@ -1,41 +1,39 @@
 package climate.query;
 
-import oracle.sql.DATE;
-import oracle.sql.NUMBER;
-
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "flights")
-@IdClass(FlightId.class)
+//@IdClass(FlightId.class)
 public class Flight {
 
     @Id
     @Column(name = "YEAR_MONTH_DAY")
-    private DATE date;
+    private Date date;
 
-    @Id
+    //@Id
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "airline")
 //    @Column(name = "airline")
     private Airline airline;
 
-    @Id
+    //@Id
     @Column(name = "FLIGHT_NUMBER")
-    private NUMBER flightNum;
+    private int flightNum;
 
-    @Id
+    //@Id
     @Column(name = "ORIGIN_AIRPORT")
     private String originAirport;
 
     @Column(nullable = false, name = "DESTINATION_AIRPORT")
     private String destAirport;
 
-    public DATE getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(DATE date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -47,11 +45,11 @@ public class Flight {
         this.airline = airline;
     }
 
-    public NUMBER getFlightNum() {
+    public int getFlightNum() {
         return flightNum;
     }
 
-    public void setFlightNum(NUMBER flightNum) {
+    public void setFlightNum(int flightNum) {
         this.flightNum = flightNum;
     }
 
@@ -71,8 +69,11 @@ public class Flight {
         this.destAirport = destAirport;
     }
 
+    public Flight(){
 
-    public Flight(DATE date, Airline airline, NUMBER flightNum, String originAirport, String destAirport) {
+    }
+
+    public Flight(Date date, Airline airline, int flightNum, String originAirport, String destAirport) {
         this.date = date;
         this.airline = airline;
         this.flightNum = flightNum;

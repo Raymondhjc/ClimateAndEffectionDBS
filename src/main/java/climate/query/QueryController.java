@@ -14,12 +14,22 @@ public class QueryController {
     private QueryService queryService;
 
     @RequestMapping("/listAirline")
-    public String listAirline(@RequestParam("code") String code){
+    public List<String> listAirline(@RequestParam("code") String code){
         return queryService.listAirline(code);
     }
 
-    @RequestMapping("/listFlight")
-    public List<Flight> listFlight(@RequestParam("code") String code){
-        return queryService.listAirlineFlight(code);
+    @RequestMapping("/listFlightDest")
+    public List<Object[]> listFlight(@RequestParam("dest") String dest){
+        return queryService.findFlight(dest);
     }
+    @RequestMapping("/listFlightOriDest")
+    public List<Object[]> listFlight(@RequestParam("ori") String origin, @RequestParam("dest") String dest){
+        return queryService.findFlight(origin, dest);
+    }
+
+
+//    @RequestMapping("/listAirlineByCode")
+//    public List<String> listFlight(@RequestParam("code") String code){
+//        return queryService.findFlight(code);
+//    }
 }

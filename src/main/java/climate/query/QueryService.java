@@ -14,11 +14,22 @@ public class QueryService {
     @Autowired
     private QueryRepository queryRepository;
 
-    public String listAirline(String code){
+    public List<String> listAirline(String code){
         return queryRepository.findAirlineByCode(code);
     }
 
-    public List<Flight> listAirlineFlight(String airlineCode){
-        return queryRepository.findFlightByAirline(airlineCode);
+    public List<Object[]> findFlight(String destAirport){
+        String destCode = queryRepository.findCodeByAirport(destAirport);
+        return queryRepository.findByDest(destCode);
     }
+
+    public List<Object[]> findFlight(String originAirport, String destAirport){
+        String originCode = queryRepository.findCodeByAirport(originAirport);
+        String destCode = queryRepository.findCodeByAirport(destAirport);
+        return queryRepository.findByOriginAndDest(originCode, destCode);
+    }
+
+//    public List<Airline> findAirline(String code){
+//        return queryRepository.findByAirline(code);
+//    }
 }
