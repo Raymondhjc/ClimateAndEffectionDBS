@@ -1,9 +1,8 @@
 package climate.query;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "airlines")
@@ -14,6 +13,9 @@ public class Airline {
     private String code;
     @Column(name = "airline", nullable = false)
     private String airline;
+
+    @OneToMany(mappedBy = "airline", cascade = CascadeType.ALL)
+    private List<Flight> flights = new ArrayList<>();
 
     public Airline(String code, String airline) {
         this.code = code;
@@ -35,5 +37,14 @@ public class Airline {
     public void setAirline(String airline) {
         this.airline = airline;
     }
+
+
+//    public List<Flight> getFlights() {
+//        return flights;
+//    }
+//
+//    public void setFlights(List<Flight> flights) {
+//        this.flights = flights;
+//    }
 
 }

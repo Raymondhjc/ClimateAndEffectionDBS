@@ -3,6 +3,8 @@ package climate.query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class QueryService {
 
@@ -14,5 +16,9 @@ public class QueryService {
 
     public String listAirline(String code){
         return queryRepository.findAirlineByCode(code);
+    }
+
+    public List<Flight> listAirlineFlight(String airlineCode){
+        return queryRepository.findFlightByAirline(airlineCode);
     }
 }
