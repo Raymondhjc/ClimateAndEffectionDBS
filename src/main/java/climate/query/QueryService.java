@@ -58,6 +58,10 @@ public class QueryService {
         return queryRepository.findByDateLoc(d, originCode, destCode);
     }
 
+    public List<Tweet> findTweet(String weather){
+        return queryRepository.findByAirline(weather);
+    }
+
 //    public List<Airline> findAirline(String code){
 //        return queryRepository.findByAirline(code);
 //    }

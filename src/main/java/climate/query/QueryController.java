@@ -27,6 +27,7 @@ public class QueryController {
     public List<Flight> listFlight(@RequestParam("ori") String origin, @RequestParam("dest") String dest){
         return queryService.findFlight(origin, dest);
     }
+
     @RequestMapping("/listFlightDate")
     public List<Flight> listFlight(@RequestParam("date") String date){
         return queryService.findFlight(date);
@@ -37,6 +38,10 @@ public class QueryController {
         return queryService.findFlight(date, origin, dest);
     }
 
+    @RequestMapping("/queryTweetWeather")
+    public List<Tweet> listTweet(@RequestParam("weather") String weather){
+        return queryService.findTweet(weather);
+    }
 
 //    @RequestMapping("/listAirlineByCode")
 //    public List<String> listFlight(@RequestParam("code") String code){
