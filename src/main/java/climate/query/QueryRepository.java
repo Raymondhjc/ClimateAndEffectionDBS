@@ -28,13 +28,13 @@ public interface QueryRepository extends CrudRepository<Flight, String> {
     List<Tweet> findByAirline(@Param("weather") String weather);
 
     //flight time
-    @Query("select f.airline from FlightTime f where f.airline = id")
+    @Query("select f from FlightTime f where f.flightTimeId.airline = ?1")
     List<FlightTime> findByDuration(String id);
-
-    // query for the flight with a duration
-//    @Query("select f.airline, f.flightNum, min(f.arrTime - f.depTime) from FlightTime f where f.FlightTimeId = ?1 group by f.airline")
-//    Object[] findByDuration(FlightTimeId id);
 
 //    @Query("select t from Tweet t where t.sentiment = ?1 and t.reason = ?2")
 //    List<Tweet> findTweetByReason(Date date, String origin, String destination);
+
+    // query about airports
+//    @Query("select a from Airport a where a.airline = ?1")
+//    List<Airport> findByAirport(String id);
 }

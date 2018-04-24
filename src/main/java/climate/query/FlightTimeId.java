@@ -15,7 +15,7 @@ public class FlightTimeId implements Serializable{
     private Date date;
 
     @Column(name = "airline")
-    private Airline airline;
+    private String airline;
 
     @Column(name = "FLIGHT_NUMBER")
     private int flightNum;
@@ -27,7 +27,7 @@ public class FlightTimeId implements Serializable{
         return date;
     }
 
-    public Airline getAirline() {
+    public String getAirline() {
         return airline;
     }
 
@@ -43,7 +43,7 @@ public class FlightTimeId implements Serializable{
         this.date = date;
     }
 
-    public void setAirline(Airline airline) {
+    public void setAirline(String airline) {
         this.airline = airline;
     }
 
@@ -58,7 +58,7 @@ public class FlightTimeId implements Serializable{
     public FlightTimeId() {
     }
 
-    public FlightTimeId(Date date, Airline airline, int flightNum, String originAirport) {
+    public FlightTimeId(Date date, String airline, int flightNum, String originAirport) {
         this.date = date;
         this.airline = airline;
         this.flightNum = flightNum;

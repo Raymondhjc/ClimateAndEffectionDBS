@@ -42,10 +42,10 @@ public class QueryController {
     public List<Tweet> listTweet(@RequestParam("weather") String weather){
         return queryService.findTweet(weather);
     }
-//    @RequestMapping("/queryAirlineDuration")
-//    public List<Object[]> findFastest(@RequestParam("ori") String origin, @RequestParam("dest") String dest){
-//        return queryService.findFlightByDuration(origin, dest);
-//    }
+    @RequestMapping("/queryAirlineDuration")
+    public List<Object[]> findFastest(@RequestParam("ori") String origin, @RequestParam("dest") String dest){
+        return queryService.findFlightByDuration(origin, dest);
+    }
 
     @RequestMapping("/test")
     public List<FlightTime> test(@RequestParam("ori") String origin){

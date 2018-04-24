@@ -20,6 +20,9 @@ public class QueryService {
     @Autowired
     private QueryRepository queryRepository;
 
+    @Autowired
+    private FlightQueryRepository flightQueryRepository;
+
     public List<String> listAirline(String code){
         return queryRepository.findAirlineByCode(code);
     }
@@ -64,16 +67,9 @@ public class QueryService {
     }
 
     // query for the flight with a duration
-//    public List<Object[]> findFlightByDuration(String origin, String dest){
-//        List<Flight> flights = findFlight(origin, dest);
-//        List<Object[]> res = new ArrayList<>();
-//        for(Flight f : flights){
-//            FlightTimeId id = new FlightTimeId(f.getFlightId().getDate(), f.getFlightId().getAirline(),
-//                    f.getFlightId().getFlightNum(), f.getFlightId().getOriginAirport());
-//            res.add(queryRepository.findByDuration(id));
-//        }
-//        return res;
-//    }
+    public List<Object[]> findFlightByDuration(String origin, String dest){
+        return flightQueryRepository.findByDuration(origin, dest);
+    }
 
     public List<FlightTime> test(String id){
         return queryRepository.findByDuration(id);
