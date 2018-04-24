@@ -24,12 +24,17 @@ public class QueryController {
 //        return queryService.findFlight(dest);
 //    }
     @RequestMapping("/listFlightOriDest")
-    public List<Object[]> listFlight(@RequestParam("ori") String origin, @RequestParam("dest") String dest){
+    public List<Flight> listFlight(@RequestParam("ori") String origin, @RequestParam("dest") String dest){
         return queryService.findFlight(origin, dest);
     }
     @RequestMapping("/listFlightDate")
-    public List<Object[]> listFlight(@RequestParam("date") String date){
+    public List<Flight> listFlight(@RequestParam("date") String date){
         return queryService.findFlight(date);
+    }
+
+    @RequestMapping("/listFlightDateLoc")
+    public List<Flight> listFlight(@RequestParam("date") String date, @RequestParam("ori") String origin, @RequestParam("dest") String dest){
+        return queryService.findFlight(date, origin, dest);
     }
 
 

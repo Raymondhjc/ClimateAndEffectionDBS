@@ -14,13 +14,12 @@ public interface QueryRepository extends CrudRepository<Flight, String> {
     @Query("select p.code from Airport p where p.airport = ?1")
     String findCodeByAirport(String destination);
 
-    @Query("select f.airline, f.flightNum from Flight f where f.originAirport = ?1 and f.destAirport = ?2")
-    List<Object[]> findByOriginAndDest(String origin, String destination);
+    @Query("select f from Flight f where f.flightId.originAirport = ?1 and f.destAirport = ?2")
+    List<Flight> findByOriginAndDest(String origin, String destination);
 
-    @Query("select f.airline, f.flightNum from Flight f where f.destAirport = ?1")
-    List<Object[]> findByDest(String destination);
+    @Query("select f from Flight f where f.flightId.date = ?1")
+    List<Flight> findByDate(Date date);
 
-    @Query("select f.airline, f.flightNum from Flight f where f.date = ?1")
-    List<Object[]> findByDate(Date date);
-
+    @Query("select f from Flight f where f.flightId.date = ?1 and f.flightId.originAirport = ?2 and f.destAirport = ?3")
+    List<Flight> findByDateLoc(Date date, String origin, String destination);
 }

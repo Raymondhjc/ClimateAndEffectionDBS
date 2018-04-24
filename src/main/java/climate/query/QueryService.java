@@ -28,13 +28,13 @@ public class QueryService {
 //        return queryRepository.findByDest(destCode);
 //    }
 
-    public List<Object[]> findFlight(String originAirport, String destAirport){
+    public List<Flight> findFlight(String originAirport, String destAirport){
         String originCode = queryRepository.findCodeByAirport(originAirport);
         String destCode = queryRepository.findCodeByAirport(destAirport);
         return queryRepository.findByOriginAndDest(originCode, destCode);
     }
 
-    public List<Object[]> findFlight(String date){
+    public List<Flight> findFlight(String date){
         SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
         Date d = new Date();
         try{
@@ -43,6 +43,19 @@ public class QueryService {
             System.out.println(e);
         }
         return queryRepository.findByDate(d);
+    }
+
+    public List<Flight> findFlight(String date, String originAirport, String destAirport){
+        SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+        Date d = new Date();
+        try{
+            d = format1.parse(date);
+        }catch (ParseException e){
+            System.out.println(e);
+        }
+        String originCode = queryRepository.findCodeByAirport(originAirport);
+        String destCode = queryRepository.findCodeByAirport(destAirport);
+        return queryRepository.findByDateLoc(d, originCode, destCode);
     }
 
 //    public List<Airline> findAirline(String code){

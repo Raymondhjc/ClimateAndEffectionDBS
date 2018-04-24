@@ -1,8 +1,7 @@
 package climate.query;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "airlines")
@@ -42,12 +41,18 @@ public class Airline {
     }
 
 
-//    public List<Flight> getFlights() {
-//        return flights;
-//    }
-//
-//    public void setFlights(List<Flight> flights) {
-//        this.flights = flights;
-//    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Airline)) return false;
+        Airline that = (Airline) o;
+        return Objects.equals(getCode(), that.getCode()) &&
+                Objects.equals(getAirline(), that.getAirline());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getCode(), getAirline());
+    }
 
 }
