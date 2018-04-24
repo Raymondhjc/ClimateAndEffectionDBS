@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -62,7 +63,19 @@ public class QueryService {
         return queryRepository.findByAirline(weather);
     }
 
-//    public List<Airline> findAirline(String code){
-//        return queryRepository.findByAirline(code);
+    // query for the flight with a duration
+//    public List<Object[]> findFlightByDuration(String origin, String dest){
+//        List<Flight> flights = findFlight(origin, dest);
+//        List<Object[]> res = new ArrayList<>();
+//        for(Flight f : flights){
+//            FlightTimeId id = new FlightTimeId(f.getFlightId().getDate(), f.getFlightId().getAirline(),
+//                    f.getFlightId().getFlightNum(), f.getFlightId().getOriginAirport());
+//            res.add(queryRepository.findByDuration(id));
+//        }
+//        return res;
 //    }
+
+    public List<FlightTime> test(String id){
+        return queryRepository.findByDuration(id);
+    }
 }
