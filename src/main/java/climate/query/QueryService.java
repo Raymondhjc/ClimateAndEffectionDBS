@@ -24,6 +24,17 @@ public class QueryService {
     @Autowired
     private FlightQueryRepository flightQueryRepository;
 
+    /**
+     * util queries
+     */
+
+    public String findAirportByCode(String code){
+        return queryRepository.findAirportByCode(code);
+    }
+
+    /**
+     * basic queries
+     */
     public List<Flight> findFlight(String originAirport, String destAirport) {
         String originCode = queryRepository.findCodeByAirport(originAirport);
         String destCode = queryRepository.findCodeByAirport(destAirport);

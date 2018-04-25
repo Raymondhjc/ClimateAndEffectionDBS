@@ -14,7 +14,17 @@ public class QueryController {
 
     @Autowired
     private QueryService queryService;
+    /**
+     * util queries
+     */
+    @RequestMapping("/findAirportCode")
+    public String findAirportCode(@RequestParam("code") String code){
+        return queryService.findAirportByCode(code);
+    }
 
+    /**
+     * basic queries
+     */
     @RequestMapping("/listFlightOriDest")
     public List<Flight> listFlight(@RequestParam("ori") String origin, @RequestParam("dest") String dest){
         return queryService.findFlight(origin, dest);
