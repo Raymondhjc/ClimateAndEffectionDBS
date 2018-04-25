@@ -15,15 +15,6 @@ public class QueryController {
     @Autowired
     private QueryService queryService;
 
-    @RequestMapping("/listAirline")
-    public List<String> listAirline(@RequestParam("code") String code){
-        return queryService.listAirline(code);
-    }
-//
-//    @RequestMapping("/listFlightDest")
-//    public List<Object[]> listFlight(@RequestParam("dest") String dest){
-//        return queryService.findFlight(dest);
-//    }
     @RequestMapping("/listFlightOriDest")
     public List<Flight> listFlight(@RequestParam("ori") String origin, @RequestParam("dest") String dest){
         return queryService.findFlight(origin, dest);
@@ -53,8 +44,17 @@ public class QueryController {
      * the insights
      */
     @RequestMapping("insight/queryTweetWord")
-    public List<Pair<String, Integer>> listTweet(@RequestParam("word") String word){
+    public List<Pair<String, Long>> listTweet(@RequestParam("word") String word){
         return queryService.findTweet(word);
     }
 
+    @RequestMapping("insight/queryTweetSentiment")
+    public List<Pair<String, List<Pair<String, Long>>>> listTweet(@RequestParam("d1") String date1, @RequestParam("d2") String date2){
+        return queryService.findTweet(date1, date2);
+    }
+
+    @RequestMapping("insight/queryTweetReason")
+    public List<Pair<String, List<Pair<String, Long>>>> listTweetReason(@RequestParam("d1") String date1, @RequestParam("d2") String date2){
+        return queryService.findTweetReason(date1, date2);
+    }
 }

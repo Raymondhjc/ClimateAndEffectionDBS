@@ -24,15 +24,6 @@ public class QueryService {
     @Autowired
     private FlightQueryRepository flightQueryRepository;
 
-    public List<String> listAirline(String code) {
-        return queryRepository.findAirlineByCode(code);
-    }
-
-//    public List<Object[]> findFlight(String destAirport){
-//        String destCode = queryRepository.findCodeByAirport(destAirport);
-//        return queryRepository.findByDest(destCode);
-//    }
-
     public List<Flight> findFlight(String originAirport, String destAirport) {
         String originCode = queryRepository.findCodeByAirport(originAirport);
         String destCode = queryRepository.findCodeByAirport(destAirport);
@@ -81,16 +72,63 @@ public class QueryService {
      * Tweet
      */
 
-    public List<Pair<String, Integer>> findTweet(String word) {
+    public List<Pair<String, Long>> findTweet(String word) {
 
-        List<Pair<String, Integer>> res = new ArrayList<>();
+        List<Pair<String, Long>> res = new ArrayList<>();
         List<Object[]> query = queryRepository.findTweetByWord(word);
-        for(Object[] o : query){
-            Pair<String, Integer> pair = new Pair<>((String)o[0], (Integer)o[1]);
+        for (Object[] o : query) {
+            Pair<String, Long> pair = new Pair<>((String) o[0], (Long) o[1]);
             res.add(pair);
         }
         return res;
     }
 
+    public List<Pair<String, List<Pair<String, Long>>>> findTweet(String date1, String date2) {
+        // pre process the date
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date d1 = new Date();
+        Date d2 = new Date();
+        try {
+            d1 = format.parse(date1);
+            d2 = format.parse(date2);
+        } catch (ParseException e) {
+            System.out.println(e);
+        }
+
+        List<Pair<String, List<Pair<String, Long>>>> res = new ArrayList<>();
+        for (Airline a : queryRepository.findAirline()) {
+            List<Pair<String, Long>> airline = new ArrayList<>();
+            for (Object[] o : queryRepository.findSentimentByAirline(d1, d2, a.getCode())) {
+                Pair<String, Long> pair = new Pair<>((String) o[0], (Long) o[1]);
+                airline.add(pair);
+            }
+            res.add(new Pair<>(a.getAirline(), airline));
+        }
+        return res;
+    }
+
+    public List<Pair<String, List<Pair<String, Long>>>> findTweetReason(String date1, String date2) {
+        // pre process the date
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date d1 = new Date();
+        Date d2 = new Date();
+        try {
+            d1 = format.parse(date1);
+            d2 = format.parse(date2);
+        } catch (ParseException e) {
+            System.out.println(e);
+        }
+
+        List<Pair<String, List<Pair<String, Long>>>> res = new ArrayList<>();
+        for (Airline a : queryRepository.findAirline()) {
+            List<Pair<String, Long>> airline = new ArrayList<>();
+            for (Object[] o : queryRepository.findReasonByAirline(d1, d2, a.getCode())) {
+                Pair<String, Long> pair = new Pair<>((String) o[0], (Long) o[1]);
+                airline.add(pair);
+            }
+            res.add(new Pair<>(a.getAirline(), airline));
+        }
+        return res;
+    }
 
 }

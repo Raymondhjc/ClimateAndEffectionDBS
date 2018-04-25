@@ -9,8 +9,8 @@ import java.util.List;
 
 public interface QueryRepository extends CrudRepository<Flight, String> {
 
-    @Query("select a.airline from Airline a where a.code = ?1")
-    List<String> findAirlineByCode(String code);
+    @Query("select a from Airline a")
+    List<Airline> findAirline();
 
     @Query("select p.code from Airport p where p.airport = ?1")
     String findCodeByAirport(String destination);
@@ -31,8 +31,11 @@ public interface QueryRepository extends CrudRepository<Flight, String> {
     @Query("select t.sentiment, count(t) from Tweet t where t.text like %:word% group by t.sentiment")
     List<Object[]> findTweetByWord(@Param("word") String word);
 
-//    @Query("select t from Tweet t where t.text like %:weather%")
-//    List<Tweet> findTweetBySentiment(@Param("weather") String weather);
+    @Query("select t.sentiment, count(t) from Tweet t where t.dateCreated between ?1 and ?2 and t.airline = ?3 group by t.sentiment")
+    List<Object[]> findSentimentByAirline(Date date1, Date date2, String airline);
+
+    @Query("select t.reason, count(t) from Tweet t where t.dateCreated between ?1 and ?2 and t.airline = ?3 group by t.reason")
+    List<Object[]> findReasonByAirline(Date date1, Date date2, String airline);
 
     //flight time
     @Query("select f from FlightTime f where f.flightTimeId.airline = ?1")
