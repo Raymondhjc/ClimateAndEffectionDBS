@@ -24,8 +24,15 @@ public interface QueryRepository extends CrudRepository<Flight, String> {
     @Query("select f from Flight f where f.flightId.date = ?1 and f.flightId.originAirport = ?2 and f.destAirport = ?3")
     List<Flight> findByDateLoc(Date date, String origin, String destination);
 
-    @Query("select t from Tweet t where t.text like %:weather%")
-    List<Tweet> findByAirline(@Param("weather") String weather);
+
+    /**
+     * some tweet insight
+      */
+    @Query("select t.sentiment, count(t) from Tweet t where t.text like %:word% group by t.sentiment")
+    List<Object[]> findTweetByWord(@Param("word") String word);
+
+//    @Query("select t from Tweet t where t.text like %:weather%")
+//    List<Tweet> findTweetBySentiment(@Param("weather") String weather);
 
     //flight time
     @Query("select f from FlightTime f where f.flightTimeId.airline = ?1")

@@ -1,5 +1,6 @@
 package climate.query;
 
+import javafx.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,10 +39,6 @@ public class QueryController {
         return queryService.findFlight(date, origin, dest);
     }
 
-    @RequestMapping("/queryTweetWeather")
-    public List<Tweet> listTweet(@RequestParam("weather") String weather){
-        return queryService.findTweet(weather);
-    }
     @RequestMapping("/queryAirlineDuration")
     public List<Object[]> findFastest(@RequestParam("ori") String origin, @RequestParam("dest") String dest){
         return queryService.findFlightByDuration(origin, dest);
@@ -50,6 +47,14 @@ public class QueryController {
     @RequestMapping("/test")
     public List<FlightTime> test(@RequestParam("ori") String origin){
         return queryService.test(origin);
+    }
+
+    /**
+     * the insights
+     */
+    @RequestMapping("insight/queryTweetWord")
+    public List<Pair<String, Integer>> listTweet(@RequestParam("word") String word){
+        return queryService.findTweet(word);
     }
 
 }

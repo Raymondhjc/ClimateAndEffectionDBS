@@ -8,7 +8,8 @@ import java.util.List;
 public interface FlightQueryRepository extends CrudRepository<FlightTime, FlightTimeId> {
 
     // query for the flight with a duration
-    @Query("select f.flightTimeId.airline, f.flightTimeId.flightNum, min(f.arrTime - f.depTime) from FlightTime f where f.flightTimeId.originAirport = ?1 and f.destAirport = ?2 group by f.flightTimeId.airline")
+    @Query("select f.flightTimeId.airline, f.flightTimeId.flightNum, min(f.depTime - f.arrTime) from FlightTime f " +
+            "where f.flightTimeId.originAirport = ?1 and f.destAirport = ?2 group by f.flightTimeId.airline, f.flightTimeId.flightNum")
     List<Object[]> findByDuration(String origin, String dest);
 
 }
